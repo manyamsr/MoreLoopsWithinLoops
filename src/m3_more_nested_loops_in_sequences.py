@@ -1,10 +1,9 @@
 """
 This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of SEQUENCES OF SUB-SEQUENCES.
-
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Sreekar Manyam.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -17,7 +16,7 @@ def main():
 def run_test_largest_number():
     """ Tests the    largest_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  largest_number  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond those we wrote.
     # ------------------------------------------------------------------
@@ -45,42 +44,57 @@ def run_test_largest_number():
 
     # TO DO 2 (continued): Add your ADDITIONAL test(s) here:
 
+    expected = 718
+    answer = largest_number([(1, 7, 8),
+                             (414, 718, 14, 9, 26),
+                             [9, 8, 7, 6]])
+    print('Expected and actual are:', expected, answer)
+
 
 def largest_number(seq_seq):
     """
     Returns the largest number in the subsequences of the given
     sequence of sequences.  Returns None if there are NO numbers
     in the subsequences.
-
     For example, if the given argument is:
         [(3, 1, 4),
          (13, 10, 11, 7, 10),
          [1, 2, 3, 4]]
     then this function returns 13.
-
     As another example, if the given argument is:
       ([], [-1111111111111111], [])
     then this function returns -1111111111111111.
-
     As yet another example, if the given argument is:
       ([], [], [])
     then this function returns None.
-
     Preconditions:
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
+
+    num_list = []
+    for i in range(len(seq_seq)):
+        for j in range(len(seq_seq[i])):
+            if len(seq_seq[i]) > 0:
+                num_list += [seq_seq[i][j]]
+    if len(num_list) == 0:
+        return None
+    largest = num_list[0]
+    for k in range(len(num_list)):
+        if largest < num_list[k]:
+            largest = num_list[k]
+    return largest
 
 
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DONE: 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -91,37 +105,60 @@ def run_test_largest_negative_number():
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
 
+    expected = -1
+    answer = largest_negative_number(([-1], [-1111111111111111], [-2.5, -3]))
+    print('Expected and actual are:', expected, answer)
+
+    expected = -1111111111111111
+    answer = largest_negative_number(([], [-1111111111111111], []))
+    print('Expected and actual are:', expected, answer)
+
+    expected = None
+    answer = largest_negative_number(([20], [20], [14]))
+    print('Expected and actual are:', expected, answer)
+
+    expected = None
+    answer = largest_number(([], [], []))
+    print('Expected and actual are:', expected, answer)
+
 
 def largest_negative_number(seq_seq):
     """
     Returns the largest NEGATIVE number in the given sequence of
     sequences of numbers.  Returns None if there are no negative numbers
     in the sequence of sequences.
-
     For example, if the given argument is:
         [(30, -5, 8, -20),
          (100, -2.6, 88, -40, -5),
          (400, 500)
         ]
     then this function returns -2.6.
-
     As another example, if the given argument is:
       [(200, 2, 20), (500, 400)]
     then this function returns None.
-
     Preconditions:
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
     #   being constructed (so the SPACE allowed is limited to the
     #   give sequence of sequences plus any non-list variables you want).
     # ------------------------------------------------------------------
+
+    largest_neg = None
+    for i in range(len(seq_seq)):
+        for j in range(len(seq_seq[i])):
+            if seq_seq[i][j] < 0:
+                if largest_neg is None:
+                    largest_neg = seq_seq[i][j]
+                if seq_seq[i][j] > largest_neg:
+                    largest_neg = seq_seq[i][j]
+    return largest_neg
 
 
 def run_test_first_is_elsewhere_too():
@@ -328,14 +365,12 @@ def first_is_elsewhere_too(seq_seq):
       -- Returns True if any element of the first (initial) subsequence
            appears in any of the other subsequences.
       -- Returns False otherwise.
-
     For example, if the given argument is:
         [(3, 1, 4),
          (13, 10, 11, 7, 10),
          [11, 12, 3, 10]]
     then this function returns True because 3 appears
     in the first subsequence and also in the third subsequence.
-
     As another example, if the given argument is:
         [(3, 1, 4),
          (13, 10, 11, 7, 10),
@@ -344,18 +379,16 @@ def first_is_elsewhere_too(seq_seq):
     any subsequence except the first, 1 does not appear in any
     subsequence except the first, and 4 does not appear in any
     subsequence except the first.
-
     As yet another example, if the given argument is:
       ([], [1, 2], [1, 2])
     then this function returns False since no element of the first
     subsequence appears elsewhere.
-
     Preconditions:
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences.
     """
     # ------------------------------------------------------------------
-    # TODO: 6. Implement and test this function.
+    # DONE: 6. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     # IMPLEMENTATION RESTRICTION:
@@ -370,6 +403,12 @@ def first_is_elsewhere_too(seq_seq):
     #   in this problem, as doing so would defeat the goal of providing
     #   practice at loops within loops (within loops within ...)
     # ------------------------------------------------------------------
+    for k in range(len(seq_seq[0])):
+        for i in range(1, len(seq_seq)):
+            for m in range(len(seq_seq[i])):
+                if seq_seq[i][m] == seq_seq[0][k]:
+                    return True
+    return False
 
 
 # ----------------------------------------------------------------------
